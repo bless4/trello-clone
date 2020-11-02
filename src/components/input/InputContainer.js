@@ -1,7 +1,9 @@
-import { Paper } from '@material-ui/core';
-import React from 'react';
+
+import React, {useState} from 'react';
+import { Paper, Collapse } from '@material-ui/core';
 import {fade, makeStyles} from '@material-ui/core/styles';
 import {Typography} from '@material-ui/core';
+import InputCard from './InputCard';
 
 const useStyle = makeStyles((theme) =>({
          root:{
@@ -19,11 +21,18 @@ const useStyle = makeStyles((theme) =>({
 
 const InputContainer = () => {
     const classes= useStyle();
+    const [open, setOpen] = useState(false);
     return (
         <div className={classes.root}>
-        <Paper className={classes.addCard} elevation={0}>
+            <Collapse in={open}>
+            <InputCard setOpen={setOpen}/>
+            </Collapse>
+           <Collapse in={!open}>
+           <Paper className={classes.addCard} elevation={0} onClick={()=> setOpen(!open)}>
             <Typography>+ Add a Card</Typography>
-        </Paper>
+        </Paper> 
+           </Collapse>
+        
         </div>
     );
 };
